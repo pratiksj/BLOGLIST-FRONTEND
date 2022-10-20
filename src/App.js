@@ -10,9 +10,21 @@ const App = () => {
   const [message, setErrorMessage] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
+  // const [title,setTitle]= useState("")
+  // const [author,setAuthor]= useState("")
+  // const [url,setUrl]=useState("")
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
+  }, []);
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem("loggedNoteappUser");
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON);
+      setUser(user);
+      blogService.setToken(user.token);
+    }
   }, []);
 
   const handleLogin = async (event) => {
@@ -23,7 +35,9 @@ const App = () => {
         username,
         password,
       });
+      blogService.setToken(user.token);
       setUser(user);
+      window.localStorage.setItem("loggedNoteappUser", JSON.stringify(user));
       setUsername("");
       setPassword("");
     } catch (exception) {
@@ -57,6 +71,11 @@ const App = () => {
     </form>
   );
 
+  const logOut = () => {
+    window.localStorage.removeItem("loggedNoteappUser");
+    setUser(null);
+  };
+
   // const noteForm = () => (
   //   <form onSubmit={addNote}>
   //     <input value={newnote} onChange={handleNoteChange} />
@@ -74,7 +93,8 @@ const App = () => {
         </>
       ) : (
         <>
-          <h2>{user.name}logged in</h2>
+          <h2>{user.name} logged in</h2>
+          <button onClick={logOut}>logout</button>
           {blogs.map((blog) => (
             <Blog key={blog.id} blog={blog} />
           ))}
