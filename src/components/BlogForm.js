@@ -1,14 +1,53 @@
-const BlogForm = (props) => {
+import { useState } from "react";
+
+const BlogForm = ({ createBlog }) => {
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [url, setUrl] = useState("");
+
+  const addBlog = (event) => {
+    event.preventDefault();
+    createBlog({
+      title: title,
+      author: author,
+      url: url,
+    });
+    //   const newBlog = {
+    //     title,
+    //     author,
+    //     url,
+    //   };
+    //const createdBlog = await blogService.create(newBlog);
+    //setBlogs(blogs.concat(createdBlog));
+    setTitle("");
+    setAuthor("");
+    setUrl("");
+    //   setErrorMessage(
+    //     `${createdBlog.author} has added a blog with title name${createdBlog.title}`
+    //   );
+    //setColor("error");
+    //   setTimeout(() => {
+    //     setErrorMessage(null);
+    //   }, 5000);
+    // } catch (exception) {
+    //   setErrorMessage("something went wrong");
+    //   setTimeout(() => {
+    //     setErrorMessage(null);
+    //   }, 5000);
+    // }
+  };
+
   return (
-    <form onSubmit={props.addBlog}>
+    <form onSubmit={addBlog}>
+      <h1>create a Blog</h1>
       <div>
         Title:{""}
         <input
           type="text"
           name="title"
-          value={props.title}
+          value={title}
           onChange={(event) => {
-            props.setTitle(event.target.value);
+            setTitle(event.target.value);
           }}
         />
       </div>
@@ -18,9 +57,9 @@ const BlogForm = (props) => {
         <input
           type="text"
           name="author"
-          value={props.author}
+          value={author}
           onChange={(event) => {
-            props.setAuthor(event.target.value);
+            setAuthor(event.target.value);
           }}
         />
       </div>
@@ -30,9 +69,9 @@ const BlogForm = (props) => {
         <input
           type="text"
           name="url"
-          value={props.url}
+          value={url}
           onChange={(event) => {
-            props.setUrl(event.target.value);
+            setUrl(event.target.value);
           }}
         />
       </div>

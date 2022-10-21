@@ -13,9 +13,9 @@ const App = () => {
   const [message, setErrorMessage] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [url, setUrl] = useState("");
+  // const [title, setTitle] = useState("");
+  // const [author, setAuthor] = useState("");
+  // const [url, setUrl] = useState("");
   const [color, setColor] = useState("");
 
   useEffect(() => {
@@ -69,40 +69,17 @@ const App = () => {
     setUser(null);
   };
 
-  const addBlog = async (event) => {
-    event.preventDefault();
-    try {
-      const newBlog = {
-        title,
-        author,
-        url,
-      };
-      const createdBlog = await blogService.create(newBlog);
-      setBlogs(blogs.concat(createdBlog));
-      setTitle("");
-      setAuthor("");
-      setUrl("");
-      setErrorMessage(
-        `${createdBlog.author} has added a blog with title name${createdBlog.title}`
-      );
-      setColor("error");
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 5000);
-    } catch (exception) {
-      setErrorMessage("something went wrong");
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 5000);
-    }
+  const addBlog = (blogObject) => {
+    blogService.create(blogObject).then((returnedNote) => {
+      setBlogs(blogs.concat(returnedNote));
+    });
   };
 
-  // const noteForm = () => (
-  //   <form onSubmit={addNote}>
-  //     <input value={newnote} onChange={handleNoteChange} />
-  //     <button type="submit">click me</button>
-  //   </form>
-  // );
+  const blogForm = () => (
+    <Togglable buttonLabel="new blog">
+      <BlogForm createBlog={addBlog} />
+    </Togglable>
+  );
 
   return (
     <div>
@@ -118,16 +95,7 @@ const App = () => {
           <h2>Blog</h2>
           <span>{user.name} logged in</span>
           <button onClick={logOut}>logout</button>
-          <h2>Create a Blog</h2>
-          <BlogForm
-            addBlog={addBlog}
-            title={title}
-            setTitle={setTitle}
-            author={author}
-            setAuthor={setAuthor}
-            url={url}
-            setUrl={setUrl}
-          />
+          {blogForm()}
           {blogs.map((blog) => (
             <Blog key={blog.id} blog={blog} />
           ))}
