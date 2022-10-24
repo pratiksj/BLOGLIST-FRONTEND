@@ -70,7 +70,7 @@ const App = () => {
   const addBlog = (blogObject) => {
     blogService.create(blogObject).then((returnedNote) => {
       setBlogs(blogs.concat(returnedNote));
-      noteFormRef.current.toggleVisibility()
+      noteFormRef.current.toggleVisibility();
     });
   };
 
@@ -98,6 +98,7 @@ const App = () => {
           {blogs.map((blog) => (
             <Blog key={blog.id} blog={blog} />
           ))}
+          {/* <Blog blog={blogs} /> */}
         </>
       )}
     </div>
