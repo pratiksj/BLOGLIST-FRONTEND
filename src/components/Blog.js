@@ -1,5 +1,7 @@
 import { useState } from "react";
-const Blog = ({ blog }) => {
+import blogService from "../services/blogs";
+
+const Blog = ({ blog, setBlogs, blogs }) => {
   const [disPlay, setDisPlay] = useState(false);
 
   const blogStyle = {
@@ -10,6 +12,21 @@ const Blog = ({ blog }) => {
     borderWidth: 2,
     borderColor: "black",
     marginBottom: 5,
+  };
+  const increaseLike = async (id, newLikes) => {
+    const blogUpdate = blogs.find((blogs) => blogs.id === id);
+    const updatedBlog = {
+      likes: newLikes,
+      author: blogUpdate.author,
+      title: blogUpdate.tittle,
+      url: blogUpdate.url,
+    };
+    const response = await blogService.update(id, updatedBlog);
+    setBlogs(blogs.map((blogs) => (blogs.id === id ? response : blogs)));
+  };
+
+  const riseLike = (id) => {
+    increaseLike(id, blog.likes + 1);
   };
 
   const showToggle = () => {
@@ -30,7 +47,7 @@ const Blog = ({ blog }) => {
           <div>{blog.url}</div>
           <div>
             likes {blog.likes}
-            <button>like</button>
+            <button onClick={() => riseLike(blog.id)}>like</button>
           </div>
         </div>
       )}
