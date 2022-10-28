@@ -67,29 +67,9 @@ const App = () => {
     setUser(null);
   };
 
-  // const increaseLike = async (id, newLikes) => {
-  //   try {
-  //     const blogUpdate = blogs.find((blogs) => blogs.id === id);
-  //     const updatedBlog = {
-  //       likes: newLikes,
-  //       author: blogUpdate.author,
-  //       title: blogUpdate.tittle,
-  //       url: blogUpdate.url,
-  //     };
-  //     const response = await blogService.update(id, updatedBlog);
-  //     setBlogs(blogs.map((blog) => (blog.id === id ? response : blog)));
-  //   } catch (exception) {
-  //     setErrorMessage("something has gone wrong");
-  //   }
-  // };
-
   const addBlog = async (blogObject) => {
     const returnedNote = await blogService.create(blogObject);
     setBlogs(blogs.concat(returnedNote));
-    // blogService.create(blogObject).then((returnedNote) => {
-    //   setBlogs(blogs.concat(returnedNote));
-    //   noteFormRef.current.toggleVisibility();
-    // });
   };
 
   const blogForm = () => (
@@ -97,6 +77,8 @@ const App = () => {
       <BlogForm createBlog={addBlog} />
     </Togglable>
   );
+
+  const sortedBlog = blogs.sort((a, b) => b.likes - a.likes);
 
   return (
     <div>
@@ -113,7 +95,7 @@ const App = () => {
           <span>{user.name} logged in</span>
           <button onClick={logOut}>logout</button>
           {blogForm()}
-          {blogs.map((blog) => (
+          {sortedBlog.map((blog) => (
             <Blog key={blog.id} blog={blog} setBlogs={setBlogs} blogs={blogs} />
           ))}
           {/* <Blog blog={blogs} /> */}
