@@ -44,7 +44,9 @@ const Blog = ({ blog, setBlogs, blogs }) => {
       {!disPlay ? (
         <div className="blog">
           {blog.title} {blog.author}
-          <button onClick={showToggle}>view</button>
+          <button className="view" onClick={showToggle}>
+            view
+          </button>
         </div>
       ) : (
         <div>
