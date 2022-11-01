@@ -5,9 +5,9 @@ const Blog = ({ blog, setBlogs, blogs }) => {
   const [disPlay, setDisPlay] = useState(false);
 
   const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    paddingRight: 2,
+    //paddingTop: 8,
+    // paddingLeft: 2,
+    //paddingRight: 2,
     border: "solid",
     borderWidth: 2,
     borderColor: "black",
@@ -42,8 +42,8 @@ const Blog = ({ blog, setBlogs, blogs }) => {
   return (
     <div style={blogStyle}>
       {!disPlay ? (
-        <div>
-          {blog.title}
+        <div className="blog">
+          {blog.title} {blog.author}
           <button onClick={showToggle}>view</button>
         </div>
       ) : (

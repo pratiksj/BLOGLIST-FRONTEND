@@ -11,10 +11,10 @@ const App = () => {
   const noteFormRef = useRef();
   const [blogs, setBlogs] = useState([]);
   const [username, setUsername] = useState("");
-  const [message, setErrorMessage] = useState("");
+  const [message, setErrorMessage] = useState(null);
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-  const [color, setColor] = useState("");
+  //const [color, setColor] = useState("");
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -44,7 +44,6 @@ const App = () => {
       setPassword("");
     } catch (exception) {
       setErrorMessage("wrong username or password");
-      setColor("blog");
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
@@ -82,7 +81,7 @@ const App = () => {
 
   return (
     <div>
-      <Notification message={message} color={color} />
+      <Notification message={message} />
 
       {user === null ? (
         <>
