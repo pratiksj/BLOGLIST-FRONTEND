@@ -53,8 +53,8 @@ const Blog = ({ blog, setBlogs, blogs }) => {
           {blog.title}
           <button onClick={showToggle}>Hide</button>
           <div>{blog.author}</div>
-          <div>{blog.url}</div>
-          <div>
+          <div className="url">{blog.url}</div>
+          <div className="likes">
             likes {blog.likes}
             <button onClick={() => riseLike(blog.id)}>like</button>
           </div>
