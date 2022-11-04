@@ -66,6 +66,18 @@ const App = () => {
     setUser(null);
   };
 
+  const increaseLike = async (id, newLikes) => {
+    const blogUpdate = blogs.find((blogs) => blogs.id === id);
+    const updatedBlog = {
+      likes: newLikes,
+      author: blogUpdate.author,
+      title: blogUpdate.tittle,
+      url: blogUpdate.url,
+    };
+    const response = await blogService.update(id, updatedBlog);
+    setBlogs(blogs.map((blogs) => (blogs.id === id ? response : blogs)));
+  };
+
   const addBlog = async (blogObject) => {
     const returnedNote = await blogService.create(blogObject);
     setBlogs(blogs.concat(returnedNote));
@@ -101,6 +113,7 @@ const App = () => {
               setBlogs={setBlogs}
               blogs={blogs}
               user={user}
+              increaseLike={increaseLike}
             />
           ))}
           {/* <Blog blog={blogs} /> */}

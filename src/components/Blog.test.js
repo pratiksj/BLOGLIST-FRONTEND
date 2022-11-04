@@ -60,25 +60,31 @@ test("Clicking the like button event handler for twice", async () => {
     author: "Richard",
     url: "kathmandu.com",
     likes: 0,
-    // user: {
-    //   username: "Laxmii",
-    //   name: "laxmi hamal",
-    //   id: "iefakfaieiaueihaie",
-    // },
+    user: {
+      username: "Laxmii",
+      name: "laxmi hamal",
+      id: "iefakfaieiaueihaie",
+    },
   };
 
-  // const User = {
-  //   username: "Laxmii",
-  //   name: "laxmi hamal",
-  //   id: "iefakfaieiaueihaie",
-  // };
+  const User = {
+    username: "Laxmii",
+    name: "laxmi hamal",
+    id: "iefakfaieiaueihaie",
+  };
 
   const mockHandler = jest.fn();
-  const { container } = render(<Blog blog={blog} />);
+  const { container } = render(
+    <Blog blog={blog} user={User} increaseLike={mockHandler} />
+  );
   const user = userEvent.setup();
-  const button = container.querySelector("#like");
-  screen.debug(container);
+  const button = container.querySelector(".likes");
   await user.click(button);
-  await user.click(button);
+  const like = container.querySelector("#like");
+
+  //screen.debug(container);
+  // console.log(button, "hwllo");
+  await user.click(like);
+  await user.click(like);
   expect(mockHandler.mock.calls).toHaveLength(2);
 });
