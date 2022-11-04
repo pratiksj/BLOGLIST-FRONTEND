@@ -50,7 +50,6 @@ const Blog = ({ blog, setBlogs, blogs, user, increaseLike }) => {
       setBlogs(blogs.filter((blog) => blog.id !== id));
     }
   };
-  console.log(typeof user);
 
   return (
     <div style={blogStyle}>
@@ -73,8 +72,6 @@ const Blog = ({ blog, setBlogs, blogs, user, increaseLike }) => {
               like
             </button>
           </div>
-          {console.log(user.id)}
-          {console.log(blog.user.id)}
 
           {user.id === blog.user.id ? (
             <button

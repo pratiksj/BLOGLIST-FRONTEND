@@ -79,14 +79,19 @@ const App = () => {
   };
 
   const addBlog = async (blogObject) => {
-    const returnedNote = await blogService.create(blogObject);
-    setBlogs(blogs.concat(returnedNote));
+    try {
+      const returnedNote = await blogService.create(blogObject);
+      setBlogs(blogs.concat(returnedNote));
+    } catch (exception) {
+      setErrorMessage({ message: "this is error" });
+    }
   };
 
   const blogForm = () => (
     <Togglable buttonLabel="new blog" ref={noteFormRef}>
       <BlogForm createBlog={addBlog} />
     </Togglable>
+    // <BlogForm createBlog={addBlog} />
   );
 
   const sortedBlog = blogs.sort((a, b) => b.likes - a.likes);

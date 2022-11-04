@@ -78,7 +78,7 @@ test("Clicking the like button event handler for twice", async () => {
     <Blog blog={blog} user={User} increaseLike={mockHandler} />
   );
   const user = userEvent.setup();
-  const button = container.querySelector(".likes");
+  const button = container.querySelector(".view");
   await user.click(button);
   const like = container.querySelector("#like");
 

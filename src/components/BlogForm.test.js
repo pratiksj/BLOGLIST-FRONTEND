@@ -6,15 +6,21 @@ import userEvent from "@testing-library/user-event";
 
 test("<BlogForm /> updates parent state and calls onSubmit", async () => {
   const createBlog = jest.fn();
-  const user = userEvent.setup();
 
   render(<BlogForm createBlog={createBlog} />);
 
   const title = screen.getByPlaceholderText("title");
   const author = screen.getByPlaceholderText("author");
   const url = screen.getByPlaceholderText("url");
+  //   screen.debug(title);
+  //   screen.debug(author);
+  //   screen.debug(url);
 
+  const user = userEvent.setup();
+  console.log(user, "kathmandu");
   const addButton = screen.getByText("Add");
+  //screen.debug(addButton, "I am here");
+  //console.log(addButton);
 
   await user.type(title, "who am i");
   await user.type(author, "harka bahadur");
