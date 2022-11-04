@@ -1,7 +1,7 @@
 import { useState } from "react";
 import blogService from "../services/blogs";
 
-const Blog = ({ blog, setBlogs, blogs }) => {
+const Blog = ({ blog, setBlogs, blogs, user }) => {
   const [disPlay, setDisPlay] = useState(false);
 
   const blogStyle = {
@@ -33,11 +33,24 @@ const Blog = ({ blog, setBlogs, blogs }) => {
     setDisPlay(!disPlay);
   };
 
-  const deletedBlog = async (id) => {
-    await blogService.remove(id);
+  // const deletedBlog = async (id) => {
+  //   await blogService.remove(id);
 
-    setBlogs(blogs.filter((blog) => blog.id !== id));
+  //   setBlogs(blogs.filter((blog) => blog.id !== id));
+  // };
+
+  const deletedBlog = async (id) => {
+    const blogToRemove = blogs.find((blog) => blog.id === id);
+    const result = window.confirm(
+      `remove the ${blogToRemove.title}by ${blogToRemove.author}`
+    );
+
+    if (result) {
+      await blogService.remove(id);
+      setBlogs(blogs.filter((blog) => blog.id !== id));
+    }
   };
+  console.log(typeof user);
 
   return (
     <div style={blogStyle}>
@@ -56,21 +69,21 @@ const Blog = ({ blog, setBlogs, blogs }) => {
           <div className="url">{blog.url}</div>
           <div className="likes">
             likes {blog.likes}
-            <button onClick={() => riseLike(blog.id)}>like</button>
+            <button id="like" onClick={() => riseLike(blog.id)}>
+              like
+            </button>
           </div>
-          <button
-            style={{ backgroundColor: "red" }}
-            onClick={() => {
-              const result = window.confirm(
-                `Remove ${blog.title} by ${blog.author}`
-              );
-              if (result === false) {
-                blogs;
-              } else deletedBlog(blog.id);
-            }}
-          >
-            remove
-          </button>
+          {console.log(user.id)}
+          {console.log(blog.user.id)}
+
+          {user.id === blog.user.id ? (
+            <button
+              style={{ backgroundColor: "red" }}
+              onClick={() => deletedBlog(blog.id)}
+            >
+              remove
+            </button>
+          ) : null}
         </div>
       )}
     </div>

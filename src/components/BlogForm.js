@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 
 const BlogForm = ({ createBlog }) => {
@@ -7,35 +8,16 @@ const BlogForm = ({ createBlog }) => {
 
   const addBlog = (event) => {
     event.preventDefault();
+
     createBlog({
       title: title,
       author: author,
       url: url,
     });
-    //   const newBlog = {
-    //     title,
-    //     author,
-    //     url,
-    //   };
-    //const createdBlog = await blogService.create(newBlog);
-    //setBlogs(blogs.concat(createdBlog));
+
     setTitle("");
     setAuthor("");
     setUrl("");
-
-    //   setErrorMessage(
-    //     `${createdBlog.author} has added a blog with title name${createdBlog.title}`
-    //   );
-    //setColor("error");
-    //   setTimeout(() => {
-    //     setErrorMessage(null);
-    //   }, 5000);
-    // } catch (exception) {
-    //   setErrorMessage("something went wrong");
-    //   setTimeout(() => {
-    //     setErrorMessage(null);
-    //   }, 5000);
-    // }
   };
 
   return (
@@ -47,6 +29,7 @@ const BlogForm = ({ createBlog }) => {
           type="text"
           name="title"
           value={title}
+          placeholder="title"
           onChange={(event) => {
             setTitle(event.target.value);
           }}
@@ -59,6 +42,7 @@ const BlogForm = ({ createBlog }) => {
           type="text"
           name="author"
           value={author}
+          placeholder="author"
           onChange={(event) => {
             setAuthor(event.target.value);
           }}
@@ -71,13 +55,16 @@ const BlogForm = ({ createBlog }) => {
           type="text"
           name="url"
           value={url}
+          placeholder="url"
           onChange={(event) => {
             setUrl(event.target.value);
           }}
         />
       </div>
 
-      <button type="submit">Add</button>
+      <button id="Add" type="submit">
+        Add
+      </button>
     </form>
   );
 };

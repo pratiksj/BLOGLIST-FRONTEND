@@ -53,3 +53,32 @@ test("clicking the button calls event handler once", async () => {
   expect(url).toHaveTextContent("kathmandu.com");
   expect(likes).toHaveTextContent("likes");
 });
+
+test("Clicking the like button event handler for twice", async () => {
+  const blog = {
+    title: "winter is coming",
+    author: "Richard",
+    url: "kathmandu.com",
+    likes: 0,
+    // user: {
+    //   username: "Laxmii",
+    //   name: "laxmi hamal",
+    //   id: "iefakfaieiaueihaie",
+    // },
+  };
+
+  // const User = {
+  //   username: "Laxmii",
+  //   name: "laxmi hamal",
+  //   id: "iefakfaieiaueihaie",
+  // };
+
+  const mockHandler = jest.fn();
+  const { container } = render(<Blog blog={blog} />);
+  const user = userEvent.setup();
+  const button = container.querySelector("#like");
+  screen.debug(container);
+  await user.click(button);
+  await user.click(button);
+  expect(mockHandler.mock.calls).toHaveLength(2);
+});

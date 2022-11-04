@@ -95,7 +95,13 @@ const App = () => {
           <button onClick={logOut}>logout</button>
           {blogForm()}
           {sortedBlog.map((blog) => (
-            <Blog key={blog.id} blog={blog} setBlogs={setBlogs} blogs={blogs} />
+            <Blog
+              key={blog.id}
+              blog={blog}
+              setBlogs={setBlogs}
+              blogs={blogs}
+              user={user}
+            />
           ))}
           {/* <Blog blog={blogs} /> */}
         </>
