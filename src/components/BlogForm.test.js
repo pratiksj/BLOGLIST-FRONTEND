@@ -12,21 +12,12 @@ test("<BlogForm /> updates parent state and calls onSubmit", async () => {
   render(<BlogForm createBlog={createBlog} />);
 
   const input = screen.getByPlaceholderText("title");
-  //const input = screen.getAllByRole("textbox");
-  //   const author = screen.getByPlaceholderText("author");
-  //   const url = screen.getByPlaceholderText("url");
-  //   screen.debug(title);
-  //   screen.debug(author);
-  //   screen.debug(url);
 
   const addButton = screen.getByText("Add");
 
   screen.debug(addButton);
-  //console.log(addButton);
 
   await user.type(input, "who am i");
-  //   await user.type(input, "harka bahadur");
-  //   await user.type(input, "himalyan.com");
   await user.click(addButton);
 
   expect(createBlog.mock.calls).toHaveLength(1);
