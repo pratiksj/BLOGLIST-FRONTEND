@@ -42,9 +42,20 @@ describe("Blog app", function () {
       cy.get("#author").type("Maheshwori");
       cy.get("#Url").type("www.himalyan.com");
       cy.get("#submit").click();
-      cy.contains("a blog created by cypress Maheshwori");
-      // cy.contains("Maheshwori");
+      cy.contains("a blog created by cypress");
+      //cy.contains("Maheshwori");
       // cy.contains("www.himalyan.com");
+    });
+    it("user can like the blog", function () {
+      cy.contains("new blog").click();
+      cy.get("#title").type("a blog created by cypress");
+      cy.get("#author").type("Maheshwori");
+      cy.get("#Url").type("www.himalyan.com");
+      cy.get("#submit").click();
+      cy.contains("a blog created by cypress");
+      cy.contains("view").click();
+      cy.contains("like").click();
+      cy.contains("1");
     });
   });
 });
