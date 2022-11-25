@@ -30,4 +30,21 @@ describe("Blog app", function () {
 
     cy.contains("Laxmii logged in");
   });
+
+  describe("When logged in", function () {
+    beforeEach(function () {
+      cy.login({ username: "Laxmi", password: "123" });
+    });
+
+    it("A blog can be created", function () {
+      cy.contains("new blog").click();
+      cy.get("#title").type("a blog created by cypress");
+      cy.get("#author").type("Maheshwori");
+      cy.get("#Url").type("www.himalyan.com");
+      cy.get("#submit").click();
+      cy.contains("a blog created by cypress Maheshwori");
+      // cy.contains("Maheshwori");
+      // cy.contains("www.himalyan.com");
+    });
+  });
 });
