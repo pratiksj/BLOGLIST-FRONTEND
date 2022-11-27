@@ -57,5 +57,16 @@ describe("Blog app", function () {
       cy.contains("like").click();
       cy.contains("1");
     });
+
+    it("user can delete the blog", function () {
+      cy.contains("new blog").click();
+      cy.get("#title").type("a blog created by cypress");
+      cy.get("#author").type("Maheshwori");
+      cy.get("#Url").type("www.himalyan.com");
+      cy.get("#submit").click();
+      cy.contains("view").click();
+      cy.contains("remove").click();
+      cy.contains("a blog created by cypress").should("not.exist");
+    });
   });
 });

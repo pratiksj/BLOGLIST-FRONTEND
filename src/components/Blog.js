@@ -73,7 +73,8 @@ const Blog = ({ blog, setBlogs, blogs, user, increaseLike }) => {
             </button>
           </div>
 
-          {user.id === blog.user.id ? (
+          {console.log(user.id)}
+          {blog.user === user.id ? (
             <button
               style={{ backgroundColor: "red" }}
               onClick={() => deletedBlog(blog.id)}
