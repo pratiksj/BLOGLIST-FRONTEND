@@ -82,6 +82,7 @@ const App = () => {
     try {
       const returnedNote = await blogService.create(blogObject);
       setBlogs(blogs.concat(returnedNote));
+      noteFormRef.current.toggleVisibility();
     } catch (exception) {
       setErrorMessage({ message: "this is error" });
     }

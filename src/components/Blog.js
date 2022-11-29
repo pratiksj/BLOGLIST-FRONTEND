@@ -56,25 +56,25 @@ const Blog = ({ blog, setBlogs, blogs, user, increaseLike }) => {
       {!disPlay ? (
         <div className="blog">
           {blog.title} {blog.author}
-          <button className="view" onClick={showToggle}>
+          <button id="view" className="view" onClick={showToggle}>
             view
           </button>
         </div>
       ) : (
-        <div>
+        <div className="blog">
           {blog.title}
-          <button onClick={showToggle}>Hide</button>
+          <button id="Hide" onClick={showToggle}>
+            Hide
+          </button>
           <div>{blog.author}</div>
           <div className="url">{blog.url}</div>
-          <div className="likes">
+          <div id="like">
             likes {blog.likes}
-            <button id="like" onClick={() => riseLike(blog.id)}>
+            <button id="likeButton" onClick={() => riseLike(blog.id)}>
               like
             </button>
           </div>
-
-          {console.log(user.id)}
-          {blog.user === user.id ? (
+          {blog.user === user.id || blog.user.id ? (
             <button
               style={{ backgroundColor: "red" }}
               onClick={() => deletedBlog(blog.id)}
