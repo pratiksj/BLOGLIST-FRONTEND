@@ -13,31 +13,10 @@ const Blog = ({ blog, setBlogs, blogs, user, increaseLike }) => {
     borderColor: "black",
     marginBottom: 5,
   };
-  // const increaseLike = async (id, newLikes) => {
-  //   const blogUpdate = blogs.find((blogs) => blogs.id === id);
-  //   const updatedBlog = {
-  //     likes: newLikes,
-  //     author: blogUpdate.author,
-  //     title: blogUpdate.tittle,
-  //     url: blogUpdate.url,
-  //   };
-  //   const response = await blogService.update(id, updatedBlog);
-  //   setBlogs(blogs.map((blogs) => (blogs.id === id ? response : blogs)));
-  // };
-
-  const riseLike = (id) => {
-    increaseLike(id, blog.likes + 1);
-  };
 
   const showToggle = () => {
     setDisPlay(!disPlay);
   };
-
-  // const deletedBlog = async (id) => {
-  //   await blogService.remove(id);
-
-  //   setBlogs(blogs.filter((blog) => blog.id !== id));
-  // };
 
   const deletedBlog = async (id) => {
     const blogToRemove = blogs.find((blog) => blog.id === id);
@@ -52,7 +31,7 @@ const Blog = ({ blog, setBlogs, blogs, user, increaseLike }) => {
   };
 
   return (
-    <div style={blogStyle}>
+    <div style={blogStyle} key={blog}>
       {!disPlay ? (
         <div className="blog">
           {blog.title} {blog.author}
@@ -70,7 +49,7 @@ const Blog = ({ blog, setBlogs, blogs, user, increaseLike }) => {
           <div className="url">{blog.url}</div>
           <div id="like">
             likes {blog.likes}
-            <button id="likeButton" onClick={() => riseLike(blog.id)}>
+            <button id="likeButton" onClick={() => increaseLike(blog.id)}>
               like
             </button>
           </div>

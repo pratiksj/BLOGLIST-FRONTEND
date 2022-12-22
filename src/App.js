@@ -66,16 +66,20 @@ const App = () => {
     setUser(null);
   };
 
-  const increaseLike = async (id, newLikes) => {
+  const increaseLike = async (id) => {
     const blogUpdate = blogs.find((blogs) => blogs.id === id);
     const updatedBlog = {
-      likes: newLikes,
+      likes: blogUpdate.likes + 1,
       author: blogUpdate.author,
       title: blogUpdate.tittle,
       url: blogUpdate.url,
     };
     const response = await blogService.update(id, updatedBlog);
-    setBlogs(blogs.map((blogs) => (blogs.id === id ? response : blogs)));
+    const tosetlikeBlog = blogs.map((blog) =>
+      blog.id === id ? response : blogs
+    );
+    //setBlogs(blogs.map((blogs) => (blogs.id === id ? response : blogs)));
+    setBlogs(tosetlikeBlog);
   };
 
   const addBlog = async (blogObject) => {
