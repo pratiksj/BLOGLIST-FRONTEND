@@ -75,11 +75,11 @@ const App = () => {
       url: blogUpdate.url,
     };
     const response = await blogService.update(id, updatedBlog);
-    const tosetlikeBlog = blogs.map((blog) =>
-      blog.id === id ? response : blogs
-    );
-    //setBlogs(blogs.map((blogs) => (blogs.id === id ? response : blogs)));
-    setBlogs(tosetlikeBlog);
+    // const tosetlikeBlog = blogs.map((blog) =>
+    //   blog.id === id ? response : blogs
+    // );
+    setBlogs(blogs.map((blogs) => (blogs.id === id ? response : blogs)));
+    //setBlogs(tosetlikeBlog);
   };
 
   const addBlog = async (blogObject) => {

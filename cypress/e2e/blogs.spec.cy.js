@@ -54,11 +54,11 @@ describe("Blog app", function () {
       cy.get("#username").type("Laxmi");
       cy.get("#password").type("123");
       cy.get("#login-button").click();
-      cy.contains("new blog").click();
-      cy.get("#title").type("fkjsdlkafjdlskf");
-      cy.get("#author").type("sudsfjsdkjkdesh");
-      cy.get("#Url").type("adad.com");
-      cy.get("#submit").click();
+      //cy.contains("new blog").click();
+      // cy.get("#title").type("fkjsdlkafjdlskf");
+      // cy.get("#author").type("sudsfjsdkjkdesh");
+      // cy.get("#Url").type("adad.com");
+      // cy.get("#submit").click();
     });
 
     it("A blog can be created", () => {
@@ -70,7 +70,7 @@ describe("Blog app", function () {
       cy.contains("tesla project");
     });
 
-    it.only("user can like a blog", () => {
+    it("user can like a blog", () => {
       cy.contains("view").click();
       cy.contains("like").click();
       cy.contains("1");
@@ -124,8 +124,8 @@ describe("Blog app", function () {
       cy.get("#likeButton").click();
       cy.get("#like").should("contain", "3");
 
-      cy.get(".blog").eq(0).should("contain", "something");
-      cy.get(".blog").eq(1).should("contain", "something1");
+      cy.get(".blog").eq(0).should("contain", "something somethingmore");
+      cy.get(".blog").eq(1).should("contain", "something1 somethingmore1");
     });
   });
 });
