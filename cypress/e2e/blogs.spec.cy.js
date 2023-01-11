@@ -8,8 +8,8 @@ describe("Blog app", function () {
     };
 
     const otherUser = {
-      name: "usha",
-      username: "usha",
+      name: "ushaji",
+      username: "ushaa",
       password: "abc",
     };
     cy.request("POST", "http://localhost:3003/api/users", user);
@@ -37,6 +37,7 @@ describe("Blog app", function () {
     beforeEach(function () {
       cy.login({ username: "Laxmi", password: "123" });
     });
+
     it("A blog can be created", function () {
       cy.contains("new blog").click();
       cy.get("#title").type("a blog created by cypress");
@@ -47,6 +48,7 @@ describe("Blog app", function () {
       //cy.contains("Maheshwori");
       // cy.contains("www.himalyan.com")
     });
+
     it("user can like the blog", function () {
       cy.contains("new blog").click();
       cy.get("#title").type("a blog created by cypress");
@@ -70,7 +72,7 @@ describe("Blog app", function () {
       cy.contains("a blog created by cypress").should("not.exist");
     });
 
-    it.only("Blog can not be deleted by other user", function () {
+    it("Blog can not be deleted by other user", function () {
       cy.contains("new blog").click();
       cy.get("#title").type("a blog created by cypress");
       cy.get("#author").type("Maheshwori");
@@ -85,6 +87,43 @@ describe("Blog app", function () {
       cy.contains("usha logged in");
       cy.contains("view").click();
       //cy.contains("remove").click();
+    });
+
+    it.only("the blogs are ordered according to likes", function () {
+      cy.newBlog({
+        title: "this is for testing",
+        author: "ushaaa",
+        url: "himalayan.com",
+      });
+
+      cy.contains("this is for testing").contains("view").click();
+      cy.contains("like").click();
+      cy.wait(500);
+      cy.contains("like").click();
+      cy.wait(500);
+      cy.contains("like").click();
+      cy.wait(500);
+      cy.contains("like").click();
+      cy.wait(500);
+      cy.contains("Hide").click();
+
+      cy.newBlog({
+        title: "this is for second testing",
+        author: "prisfafhd",
+        url: "himalayan.com",
+      });
+
+      cy.contains("this is for second testing").contains("view").click();
+      cy.contains("like").click();
+      cy.wait(500);
+      cy.contains("like").click();
+      cy.wait(500);
+      cy.contains("like").click();
+      cy.wait(500);
+      cy.contains("Hide").click();
+
+      cy.get(".blog").eq(0).should("contain", "this is for testing");
+      cy.get(".blog").eq(1).should("contain", "this is for second testing");
     });
   });
 });
