@@ -2,6 +2,8 @@ import { useState } from "react";
 import blogService from "../services/blogs";
 
 const Blog = ({ blog, setBlogs, blogs, user, increaseLike }) => {
+  //console.log(blog.user.id, "this is to check");
+  //console.log(user.id, "this is from user");
   const [disPlay, setDisPlay] = useState(false);
 
   const blogStyle = {
@@ -53,7 +55,11 @@ const Blog = ({ blog, setBlogs, blogs, user, increaseLike }) => {
               like
             </button>
           </div>
-          {blog.user === user.id || blog.user.id ? (
+          {console.log(blog.user, "blog.user")}
+          {console.log(user.id, "user.id")}
+          {console.log(blog.user.id, "blog.user.id")}
+          {console.log(blog, "Only blog")}
+          {blog.user.id === user.id ? (
             <button
               style={{ backgroundColor: "red" }}
               onClick={() => deletedBlog(blog.id)}
@@ -68,3 +74,6 @@ const Blog = ({ blog, setBlogs, blogs, user, increaseLike }) => {
 };
 
 export default Blog;
+
+//&& blog.user.id
+//blog.user || blog.user.id === user.id
